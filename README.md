@@ -6,18 +6,14 @@ Identify images in your asset directory that may no longer be used.
 Installation
 ============
 
-Add redundant to your gemfile
+install the gem
 
-    gem 'redundant', git: 'https://github.com/bitscraps/redundant.git'
-
-the run the following from the root directory of your app
-
-    bundle install
+    gem install redundant
 
 Usage
 =====
 
-run redundant from the root directory of your app to see which files may no longer be used.
+run redundant from the root directory of your rails app to see which files may no longer be used.
 
 How it works
 ============

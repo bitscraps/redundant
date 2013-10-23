@@ -12,26 +12,26 @@ class Redundant
     checkFolders = ['assets/stylesheets', 'assets/javascripts', 'helpers', 'views']
 
     checkFolders.each do |folder|
-      if (File.directory?("#{path}#{folder}"))
-        Find.find("#{path}#{folder}").each do |file|
+      if (File.directory?("#{path}/app/#{folder}"))
+        Find.find("#{path}/app/#{folder}").each do |file|
          if (File.file?(file) && file !~ /\.DS_Store/)
             file_contents = File.open(file, "r")
             data = file_contents.read
             file_contents.close
 
             data.scan(/\/assets\/(.*?\.(jpg|jpeg|png|gif|webp))/i).each do |image|
-              assets.delete("assets/images/#{image.first}")
+              assets.delete("/app/assets/images/#{image.first}")
             end
 
             data.scan(/image_tag.*?"(.*?)"/).each do |image|
 
-              assets.delete("assets/images/#{image.first}")
+              assets.delete("/app/assets/images/#{image.first}")
             end
 
           end
         end
       else
-        puts "The directory #{path}#{folder} does not exist"
+        puts "The directory #{path}/app/#{folder} does not exist"
       end
     end
 
@@ -52,12 +52,12 @@ class Redundant
 
     assets = []
 
-    if File.directory? "#{path}assets/images/"
-      Find.find("#{path}assets/images/").each do |asset|
+    if File.directory? "#{path}/app/assets/images/"
+      Find.find("#{path}/app/assets/images/").each do |asset|
         assets.push asset.gsub(/#{path}/, '') if asset.match(/(png|jpg|jpeg|gif|webp)/i)
       end
     else
-      puts "Can't find an assets image directory"
+      puts "Can't find an assets image directory (#{path}/app/assets/images/)"
     end
     return assets
   end
